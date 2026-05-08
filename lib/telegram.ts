@@ -10,6 +10,7 @@ function getBotToken(): string {
 
 function getChatId(): string {
   const id = process.env.TELEGRAM_CHAT_ID;
+  console.log('[TELEGRAM] Using chat ID:', id);
   if (!id) throw new Error('Missing TELEGRAM_CHAT_ID');
   return id;
 }
