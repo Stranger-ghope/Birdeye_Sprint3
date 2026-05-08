@@ -129,7 +129,7 @@ export default function Home() {
         </div>
 
         <p className="text-center text-gray-600 text-xs mt-4">
-          Signals enforce safety rules: STRONG BUY is downgraded if safety &lt; 50, downgraded to WATCH if &lt; 30.
+          Signals enforce safety rules: STRONG BUY → BUY if safety &lt; 50. STRONG BUY or BUY → WATCH if safety &lt; 30.
         </p>
       </section>
 
