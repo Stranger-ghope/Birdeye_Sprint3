@@ -116,6 +116,7 @@ memeradar/
 │   ├── api-call.png             # API usage proof screenshot
 │   ├── birdeye.webp             # Competition banner
 │   ├── dashboard.png            # Dashboard screenshot
+│   ├── verdict.png              # Signal verdict screenshot
 │   └── telegram.png             # Telegram alert screenshot
 └── README.md
 ```
@@ -128,6 +129,12 @@ memeradar/
 
 <p align="center">
   <img src="public/dashboard.png" alt="MemeRadar Dashboard" width="100%" />
+</p>
+
+### Signal Verdict — Every Token Gets Classified
+
+<p align="center">
+  <img src="public/verdict.png" alt="Signal Verdict Table" width="100%" />
 </p>
 
 ### Telegram Alerts — AI Signals with Trade Links

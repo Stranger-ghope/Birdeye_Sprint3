@@ -106,7 +106,7 @@ export async function GET(request: Request) {
 
     // 7. AI analysis for top 5 + safety-signal enforcement
     if (withAi) {
-      for (const token of tokens.slice(0, 5)) {
+      for (const token of tokens) {
         const ai = await analyzeToken(token);
         token.aiAnalysis = ai.analysis;
         token.confidence = ai.confidence;
@@ -152,7 +152,7 @@ export async function GET(request: Request) {
       tokens,
       meta: {
         birdeyeCalls,
-        apiCalls: birdeyeCalls + (withAi ? Math.min(tokens.length, 5) : 0),
+        apiCalls: birdeyeCalls + (withAi ? tokens.length : 0),
         alertsSent,
         timestamp: new Date().toISOString(),
         aiEnabled: withAi,

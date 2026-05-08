@@ -35,16 +35,16 @@ export default function Home() {
         </div>
 
         <h1 className="text-5xl md:text-7xl font-bold leading-tight max-w-4xl">
-          Every degen watches<br />
-          <span className="text-[#00ffc8] glow-text">the chart.</span>
+          Find meme tokens<br />
+          <span className="text-[#00ffc8] glow-text">before they explode.</span>
         </h1>
         <h2 className="text-3xl md:text-5xl font-bold text-gray-400 mt-2">
-          We watch the <span className="text-white">blockchain.</span>
+          AI-scored. Safety-checked. <span className="text-white">One click to trade.</span>
         </h2>
 
         <p className="text-gray-400 max-w-2xl mt-6 text-lg leading-relaxed">
-          MemeRadar detects early meme tokens before they explode.
-          AI-scored. Safety-checked. Delivered to Telegram.
+          Real-time Solana token radar powered by 5 Birdeye endpoints.
+          Signals delivered straight to Telegram with trade links.
         </p>
 
         <div className="flex items-center gap-4 mt-10">
@@ -65,58 +65,72 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Signal Examples */}
+      {/* Signal Breakdown */}
       <section className="max-w-5xl mx-auto px-6 py-16">
-        <h3 className="text-center text-sm text-gray-500 uppercase tracking-widest mb-10">
-          What a signal looks like
+        <h3 className="text-center text-3xl font-bold mb-4">
+          Every Token Gets a <span className="text-[#00ffc8]">Verdict</span>
         </h3>
+        <p className="text-center text-gray-500 text-sm mb-10">
+          AI analyzes volume, safety, and holder data — then classifies each token into one of four signals.
+        </p>
 
-        <div className="grid md:grid-cols-3 gap-4">
-          {/* Strong Buy */}
-          <div className="signal-card rounded-xl p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-lg">🟢🟢</span>
-              <span className="text-[#00ff88] font-bold text-sm">STRONG BUY</span>
-            </div>
-            <p className="text-white font-semibold">$MYRO — Myro</p>
-            <p className="text-gray-400 text-sm mt-1">
-              Volume surging +1600%. Safety: 70/100. 51K holders.
-            </p>
-            <p className="text-[#00ffc8] text-xs mt-3 italic">
-              &quot;High volume surge and decent safety score indicate strong momentum.&quot;
-            </p>
-          </div>
-
-          {/* Watch */}
-          <div className="signal-card rounded-xl p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-lg">🟡</span>
-              <span className="text-yellow-400 font-bold text-sm">WATCH</span>
-            </div>
-            <p className="text-white font-semibold">$BONK — BonkCoin</p>
-            <p className="text-gray-400 text-sm mt-1">
-              Volume up +45%. Safety: 55/100. Mixed signals — needs monitoring.
-            </p>
-            <p className="text-gray-500 text-xs mt-3 italic">
-              &quot;Moderate momentum but safety concerns. Wait for confirmation.&quot;
-            </p>
-          </div>
-
-          {/* Avoid */}
-          <div className="signal-card rounded-xl p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-lg">🔴</span>
-              <span className="text-[#ff4d4d] font-bold text-sm">AVOID</span>
-            </div>
-            <p className="text-white font-semibold">$RUG — RugToken</p>
-            <p className="text-gray-400 text-sm mt-1">
-              Mint authority active. Top holder 90%. Safety: 15/100.
-            </p>
-            <p className="text-red-400 text-xs mt-3 italic">
-              &quot;Freeze authority enabled and concentrated holders. High rug risk.&quot;
-            </p>
-          </div>
+        <div className="overflow-hidden rounded-xl border border-[#1a2235]">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-[#0a0f1a] text-gray-500 text-xs uppercase">
+                <th className="text-left px-4 py-3">Token</th>
+                <th className="text-left px-4 py-3">Signal</th>
+                <th className="text-left px-4 py-3">Why</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-t border-[#1a2235]">
+                <td className="px-4 py-3">
+                  <span className="text-white font-bold">$MYRO</span>
+                  <span className="text-gray-500 text-xs ml-2">70/100 safety</span>
+                </td>
+                <td className="px-4 py-3">
+                  <span className="bg-green-500/20 text-green-400 text-xs font-bold px-2 py-0.5 rounded">STRONG BUY</span>
+                </td>
+                <td className="px-4 py-3 text-gray-400">+1600% volume, 51K holders, no freeze authority</td>
+              </tr>
+              <tr className="border-t border-[#1a2235]">
+                <td className="px-4 py-3">
+                  <span className="text-white font-bold">$UFO</span>
+                  <span className="text-gray-500 text-xs ml-2">35/100 safety</span>
+                </td>
+                <td className="px-4 py-3">
+                  <span className="bg-green-500/10 text-green-300 text-xs font-bold px-2 py-0.5 rounded">BUY</span>
+                </td>
+                <td className="px-4 py-3 text-gray-400">+1870% volume but low safety → downgraded from STRONG BUY</td>
+              </tr>
+              <tr className="border-t border-[#1a2235]">
+                <td className="px-4 py-3">
+                  <span className="text-white font-bold">$BONK</span>
+                  <span className="text-gray-500 text-xs ml-2">55/100 safety</span>
+                </td>
+                <td className="px-4 py-3">
+                  <span className="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-2 py-0.5 rounded">WATCH</span>
+                </td>
+                <td className="px-4 py-3 text-gray-400">Moderate volume, mixed holder distribution</td>
+              </tr>
+              <tr className="border-t border-[#1a2235]">
+                <td className="px-4 py-3">
+                  <span className="text-white font-bold">$SCAM</span>
+                  <span className="text-gray-500 text-xs ml-2">12/100 safety</span>
+                </td>
+                <td className="px-4 py-3">
+                  <span className="bg-red-500/20 text-red-400 text-xs font-bold px-2 py-0.5 rounded">AVOID</span>
+                </td>
+                <td className="px-4 py-3 text-gray-400">Mint authority active, top holder 90%, freeze enabled</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
+        <p className="text-center text-gray-600 text-xs mt-4">
+          Signals enforce safety rules: STRONG BUY is downgraded if safety &lt; 50, downgraded to WATCH if &lt; 30.
+        </p>
       </section>
 
       {/* How It Works */}
@@ -170,7 +184,6 @@ export default function Home() {
             { endpoint: '/defi/token_security', desc: 'Mint authority, freeze, holder concentration' },
             { endpoint: '/defi/price', desc: 'Real-time token pricing' },
             { endpoint: '/defi/token_overview', desc: 'Holder count and supply data' },
-            { endpoint: '/v3/token/trade-data/single', desc: '24h buy/sell trade activity' },
           ].map((item) => (
             <div key={item.endpoint} className="flex items-center gap-3 bg-[#0a0f1a] border border-[#1a2235] rounded-lg px-4 py-3">
               <span className="text-[#00ffc8]">✓</span>
@@ -214,7 +227,7 @@ export default function Home() {
             </div>
             <h4 className="font-bold mb-2">Join Telegram</h4>
             <p className="text-gray-400 text-sm">
-              Get BUY alerts pushed to your phone with AI analysis and trade links — even when you&apos;re AFK.
+              Get BUY alerts pushed to your phone with AI analysis and trade links — even when you&apos;re Away From Keyboard.
             </p>
           </div>
         </div>
@@ -227,7 +240,7 @@ export default function Home() {
           <span className="text-[#00ffc8]">Start getting signals.</span>
         </h3>
         <p className="text-gray-400 mb-8">
-          Every signal drops to Telegram with a full AI breakdown and trade links. No dashboard required.
+          BUY signals auto-fire to Telegram with AI analysis, safety scores, and one-click trade links. Always scanning, even when you&apos;re not.
         </p>
         <a
           href="https://t.me/memeradar_final_signal"
