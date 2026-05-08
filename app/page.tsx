@@ -17,7 +17,7 @@ export default function Home() {
             Dashboard
           </Link>
           <a
-            href="https://t.me/memeradar_signals"
+            href="https://t.me/memeradar_final_signal"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#00ffc8] text-black font-semibold text-sm px-4 py-2 rounded-lg hover:bg-[#00e6b4] transition-colors"
@@ -49,7 +49,7 @@ export default function Home() {
 
         <div className="flex items-center gap-4 mt-10">
           <a
-            href="https://t.me/memeradar_signals"
+            href="https://t.me/memeradar_final_signal"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#00ffc8] text-black font-bold px-8 py-3 rounded-lg text-lg hover:bg-[#00e6b4] transition-all glow-accent"
@@ -78,12 +78,12 @@ export default function Home() {
               <span className="text-lg">🟢🟢</span>
               <span className="text-[#00ff88] font-bold text-sm">STRONG BUY</span>
             </div>
-            <p className="text-white font-semibold">$PEPE — PepeCoin</p>
+            <p className="text-white font-semibold">$MYRO — Myro</p>
             <p className="text-gray-400 text-sm mt-1">
-              Volume surging +340%. Smart wallets loading. Safety: 85/100.
+              Volume surging +1600%. Safety: 70/100. 51K holders.
             </p>
             <p className="text-[#00ffc8] text-xs mt-3 italic">
-              &quot;All signals aligned. Price flat. Wallets loading. This is the window.&quot;
+              &quot;High volume surge and decent safety score indicate strong momentum.&quot;
             </p>
           </div>
 
@@ -95,10 +95,10 @@ export default function Home() {
             </div>
             <p className="text-white font-semibold">$BONK — BonkCoin</p>
             <p className="text-gray-400 text-sm mt-1">
-              Volume up +45%. Mixed safety signals. Needs monitoring.
+              Volume up +45%. Safety: 55/100. Mixed signals — needs monitoring.
             </p>
             <p className="text-gray-500 text-xs mt-3 italic">
-              &quot;Pattern building. Wait for full confirmation before entry.&quot;
+              &quot;Moderate momentum but safety concerns. Wait for confirmation.&quot;
             </p>
           </div>
 
@@ -108,12 +108,12 @@ export default function Home() {
               <span className="text-lg">🔴</span>
               <span className="text-[#ff4d4d] font-bold text-sm">AVOID</span>
             </div>
-            <p className="text-white font-semibold">$SCAM — ScamToken</p>
+            <p className="text-white font-semibold">$RUG — RugToken</p>
             <p className="text-gray-400 text-sm mt-1">
-              Mint authority active. Top holder 90%. Low liquidity.
+              Mint authority active. Top holder 90%. Safety: 15/100.
             </p>
             <p className="text-red-400 text-xs mt-3 italic">
-              &quot;Red flags everywhere. Stay far away from this one.&quot;
+              &quot;Freeze authority enabled and concentrated holders. High rug risk.&quot;
             </p>
           </div>
         </div>
@@ -230,7 +230,7 @@ export default function Home() {
           Every signal drops to Telegram with a full AI breakdown and trade links. No dashboard required.
         </p>
         <a
-          href="https://t.me/memeradar_signals"
+          href="https://t.me/memeradar_final_signal"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-[#00ffc8] text-black font-bold px-10 py-4 rounded-lg text-lg hover:bg-[#00e6b4] transition-all glow-accent inline-block"

@@ -80,8 +80,8 @@ export async function GET(request: Request) {
     // Heuristic fallback for remaining tokens
     tokens.slice(2).forEach((t) => { t.safetyScore = scoreFromHeuristic(t); });
 
-    // 4. Token overview via /defi/token_overview (top 2 — holder count)
-    for (const token of tokens.slice(0, 2)) {
+    // 4. Token overview via /defi/token_overview (top 5 — holder count)
+    for (const token of tokens.slice(0, 5)) {
       try {
         await delay();
         const overview = await fetchTokenOverview(token.address);

@@ -1,15 +1,34 @@
-# 📡 MemeRadar.ai
+<p align="center">
+  <img src="public/birdeye.webp" alt="Birdeye Data Sprint 3" width="100%" />
+</p>
 
-**AI-powered meme token discovery on Solana** — real-time trending tokens, safety scoring, AI trading signals, and automated Telegram alerts.
+<h1 align="center">📡 MemeRadar.ai</h1>
 
-Built for [Birdeye Data Sprint 3](https://earn.superteam.fun/) using the [Birdeye API](https://docs.birdeye.so/).
+<p align="center">
+  <strong>AI-powered meme token discovery on Solana</strong><br/>
+  Real-time trending tokens · Safety scoring · AI trading signals · Telegram alerts
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Birdeye_API-5_Endpoints-00ffc8?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2Zy8+" alt="Birdeye API" />
+  <img src="https://img.shields.io/badge/API_Calls-140%2B_Verified-00ffc8?style=for-the-badge" alt="API Calls" />
+  <img src="https://img.shields.io/badge/AI-Groq_Llama_3.1-blue?style=for-the-badge" alt="AI" />
+  <img src="https://img.shields.io/badge/Alerts-Telegram_Bot-0088cc?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram" />
+  <img src="https://img.shields.io/badge/Framework-Next.js_14-black?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+</p>
+
+<p align="center">
+  <a href="https://memeradar.vercel.app"><strong>🌐 Live Demo</strong></a> · 
+  <a href="https://t.me/memeradar_final_signal"><strong>📲 Telegram Channel</strong></a> · 
+  <a href="https://github.com/Stranger-ghope/Birdeye_Sprint3"><strong>💻 GitHub</strong></a>
+</p>
+
+---
 
 > 🏆 **Birdeye Data 4-Week BIP Competition — Sprint 3 Submission**
 
-## Live Demo
-
-🌐 **Website:** [memeradar.vercel.app](https://memeradar.vercel.app)
-📲 **Telegram Channel:** [@memeradar_final_signal](https://t.me/memeradar_final_signal)
+---
 
 ## What It Does
 
@@ -18,39 +37,66 @@ MemeRadar.ai scans the Solana blockchain in real-time to surface trending and ne
 ### Pipeline
 
 ```
-Birdeye API → Trending + New Listings → Security → Overview → Trade Data → Price → AI Analysis → Telegram Alerts
+Birdeye API → Trending + New Listings → Security → Overview → Price → AI Analysis → Telegram Alerts
 ```
 
 1. **Fetch trending tokens** via `/defi/token_trending`
 2. **Cross-reference new listings** via `/defi/v2/tokens/new_listing`
 3. **Safety scoring** via `/defi/token_security` with heuristic fallback
 4. **Holder counts** via `/defi/token_overview`
-5. **Buy/sell activity** via `/v3/token/trade-data/single`
-6. **Real-time price verification** via `/defi/price`
-7. **AI signal generation** via Groq (Llama 3.1) — classifies tokens as `STRONG_BUY`, `BUY`, `WATCH`, or `AVOID`
-8. **Telegram alerts** — automatically pushes BUY/STRONG_BUY signals to a live channel
+5. **Real-time price verification** via `/defi/price`
+6. **AI signal generation** via Groq (Llama 3.1) — classifies tokens as `STRONG_BUY`, `BUY`, `WATCH`, or `AVOID`
+7. **Telegram alerts** — pushes BUY/STRONG_BUY signals with trade links to Birdeye & Jupiter
 
-## Birdeye API Endpoints Used
+---
 
-| Endpoint | Purpose | Calls/Scan |
-|---|---|---|
-| `GET /defi/token_trending` | Fetch top trending tokens on Solana | 1 |
-| `GET /defi/v2/tokens/new_listing` | Detect newly listed tokens | 1 |
-| `GET /defi/token_security` | Security info (freeze, mint authority, holder concentration) | up to 5 |
-| `GET /defi/price` | Real-time price verification for top tokens | up to 3 |
-| `GET /defi/token_overview` | Holder count and supply data | up to 3 |
-| `GET /v3/token/trade-data/single` | 24h buy/sell trade activity | up to 3 |
+## Birdeye API Endpoints
 
-**6 Birdeye endpoints, ~16 API calls per scan**, auto-refreshing every 2 minutes. Reaches 50+ calls within minutes of dashboard use.
+| # | Endpoint | Purpose | Calls/Scan |
+|---|---|---|---|
+| 1 | `GET /defi/token_trending` | Fetch top trending tokens on Solana | 1 |
+| 2 | `GET /defi/v2/tokens/new_listing` | Detect newly listed tokens | 1 |
+| 3 | `GET /defi/token_security` | Mint authority, freeze, holder concentration | 2 |
+| 4 | `GET /defi/token_overview` | Holder count and supply data | 5 |
+| 5 | `GET /defi/price` | Real-time price verification | 2 |
+
+**5 Birdeye endpoints · ~11 API calls per scan · Auto-refresh every 2 min**
+
+### ✅ 140+ API Calls Verified
+
+<p align="center">
+  <img src="public/api-call.png" alt="Birdeye API Metrics — 140+ calls verified" width="100%" />
+</p>
+
+---
+
+## Features
+
+| Feature | Description |
+|---|---|
+| 📡 **Live Token Feed** | Trending + new tokens refreshed every 2 minutes |
+| 🛡️ **Safety Scoring** | On-chain security data with heuristic fallback |
+| 👥 **Holder Data** | Real holder counts from token overview |
+| 🤖 **AI Signals** | Groq-powered `STRONG_BUY` / `BUY` / `WATCH` / `AVOID` with confidence % |
+| 🔗 **Trade Buttons** | One-click trade on Birdeye directly from dashboard |
+| 📲 **Telegram Alerts** | Auto-push BUY signals with AI analysis + trade links |
+| 📊 **API Call Tracker** | Live Birdeye call counter with 50+ proof |
+| 🐦 **Share to X** | One-click sharing for any token signal |
+
+---
 
 ## Tech Stack
 
-- **Framework:** Next.js 14 (App Router, TypeScript)
-- **Styling:** Tailwind CSS (dark theme, neon accents)
-- **AI Engine:** Groq API (Llama 3.1 8B Instant)
-- **Alerts:** Telegram Bot API
-- **Data:** Birdeye Public API (Solana)
-- **Deployment:** Vercel
+| Layer | Technology |
+|---|---|
+| **Framework** | Next.js 14 (App Router, TypeScript) |
+| **Styling** | Tailwind CSS (dark theme, neon accents) |
+| **AI Engine** | Groq API (Llama 3.1 8B Instant) |
+| **Alerts** | Telegram Bot API |
+| **Data** | Birdeye Public API (Solana) |
+| **Deployment** | Vercel |
+
+---
 
 ## Project Structure
 
@@ -59,23 +105,50 @@ memeradar/
 ├── app/
 │   ├── page.tsx                 # Landing page
 │   ├── dashboard/page.tsx       # Live token dashboard
-│   └── api/scan/route.ts        # Scan pipeline API
+│   └── api/scan/route.ts        # Scan pipeline API (7-step pipeline)
 ├── lib/
 │   ├── types.ts                 # Shared TypeScript types
-│   ├── birdeye.ts               # Birdeye API client
+│   ├── birdeye.ts               # Birdeye API client (5 endpoints)
 │   ├── groq.ts                  # AI analysis (Groq/Llama)
 │   ├── telegram.ts              # Telegram alert client
 │   └── scorer.ts                # Safety scoring logic
+├── public/
+│   ├── api-call.png             # API usage proof screenshot
+│   ├── birdeye.webp             # Competition banner
+│   ├── dashboard.png            # Dashboard screenshot
+│   └── telegram.png             # Telegram alert screenshot
 └── README.md
 ```
 
+---
+
+## Screenshots
+
+### Dashboard — Live Token Radar
+
+<p align="center">
+  <img src="public/dashboard.png" alt="MemeRadar Dashboard" width="100%" />
+</p>
+
+### Telegram Alerts — AI Signals with Trade Links
+
+<p align="center">
+  <img src="public/telegram.png" alt="Telegram Alerts" width="50%" />
+</p>
+
+---
+
 ## Getting Started
+
+**1. Clone & install**
 
 ```bash
 git clone https://github.com/Stranger-ghope/Birdeye_Sprint3.git
 cd Birdeye_Sprint3
 npm install
 ```
+
+**2. Configure environment**
 
 Create a `.env.local` file:
 
@@ -86,34 +159,22 @@ TELEGRAM_BOT_TOKEN=your_bot_token
 TELEGRAM_CHAT_ID=your_chat_id
 ```
 
-Run locally:
+**3. Run locally**
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the landing page, or [http://localhost:3000/dashboard](http://localhost:3000/dashboard) for the live radar.
+Open [localhost:3000](http://localhost:3000) for the landing page, or [localhost:3000/dashboard](http://localhost:3000/dashboard) for the live radar.
 
-## Features
-
-- **Real-time token feed** — Trending + new tokens refreshed every 2 minutes
-- **Safety scoring** — On-chain security data + heuristic analysis
-- **Holder & trade data** — Holder counts, 24h buy/sell activity
-- **AI trading signals** — Groq-powered analysis with confidence scores
-- **Trade buttons** — One-click trade on Birdeye from any signal
-- **Telegram alerts** — Automated push notifications for BUY signals
-- **API call tracking** — Live Birdeye call counter with 50+ proof
-- **Share to X** — One-click sharing for any token signal
-- **Dark mode UI** — Professional dashboard with neon accent theme
-
-## Screenshots
-
-_Screenshots of dashboard and Telegram alerts will be added._
+---
 
 ## Author
 
-Built by [@Cheeseman07](https://x.com/Cheeseman07) for Birdeye Data Sprint 3.
+Built by [@maineine](https://x.com/maineine) for Birdeye Data Sprint 3.
 
-## Tags
+Telegram: [@Cheeseman07](https://t.me/Cheeseman07)
 
-`#BirdeyeAPI` `@birdeye_data` `#Solana` `#MemeTokens` `#AI`
+<p align="center">
+  <code>#BirdeyeAPI</code> · <code>@birdeye_data</code> · <code>#Solana</code> · <code>#MemeTokens</code> · <code>#AI</code>
+</p>
