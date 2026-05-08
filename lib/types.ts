@@ -15,6 +15,10 @@ export type MemeToken = {
   safetyScore: number | null;
   aiAnalysis: string | null;
   signal: Signal | null;
+  confidence: number | null;
+  holders: number | null;
+  buys24h: number | null;
+  sells24h: number | null;
 };
 
 export type AISignal = {
@@ -24,6 +28,7 @@ export type AISignal = {
 };
 
 export type TelegramAlert = {
+  address: string;
   symbol: string;
   name: string;
   price: number;
@@ -37,6 +42,7 @@ export type TelegramAlert = {
 };
 
 export type ScanMeta = {
+  birdeyeCalls: number;
   apiCalls: number;
   alertsSent: number;
   timestamp: string;

@@ -45,6 +45,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [totalApiCalls, setTotalApiCalls] = useState(0);
+  const [totalBirdeyeCalls, setTotalBirdeyeCalls] = useState(0);
   const [aiEnabled, setAiEnabled] = useState(true);
   const [alertsEnabled, setAlertsEnabled] = useState(false);
 
@@ -52,11 +53,14 @@ export default function Dashboard() {
   useEffect(() => {
     const saved = localStorage.getItem('memeradar_apiCalls');
     if (saved) setTotalApiCalls(parseInt(saved, 10));
+    const savedBe = localStorage.getItem('memeradar_birdeyeCalls');
+    if (savedBe) setTotalBirdeyeCalls(parseInt(savedBe, 10));
   }, []);
 
   useEffect(() => {
     localStorage.setItem('memeradar_apiCalls', totalApiCalls.toString());
-  }, [totalApiCalls]);
+    localStorage.setItem('memeradar_birdeyeCalls', totalBirdeyeCalls.toString());
+  }, [totalApiCalls, totalBirdeyeCalls]);
 
   const fetchTokens = useCallback(async () => {
     setLoading(true);
@@ -77,6 +81,7 @@ export default function Dashboard() {
       setTokens(data.tokens ?? []);
       setMeta(data.meta ?? null);
       setTotalApiCalls((prev) => prev + (data.meta?.apiCalls ?? 0));
+      setTotalBirdeyeCalls((prev) => prev + (data.meta?.birdeyeCalls ?? 0));
     } catch (err: any) {
       setError(err?.message ?? 'Unknown error');
     } finally {
@@ -107,12 +112,12 @@ export default function Dashboard() {
           <div className="flex items-center gap-2 bg-[#0a0f1a] border border-[#1a2235] rounded-lg px-3 py-1.5">
             <span className="w-2 h-2 rounded-full bg-[#00ffc8] animate-pulse-glow" />
             <span className="text-xs text-gray-400">
-              API Calls: <span className={`font-bold ${totalApiCalls >= 50 ? 'text-[#00ffc8]' : 'text-white'}`}>{totalApiCalls}</span>
-              {totalApiCalls >= 50 && <span className="text-[#00ffc8] ml-1">✓</span>}
+              Birdeye: <span className={`font-bold ${totalBirdeyeCalls >= 50 ? 'text-[#00ffc8]' : 'text-white'}`}>{totalBirdeyeCalls}</span>
+              {totalBirdeyeCalls >= 50 && <span className="text-[#00ffc8] ml-1">✓ 50+</span>}
             </span>
           </div>
           <a
-            href="https://t.me/memeradar_signals"
+            href="https://t.me/memeradar_final_signal"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#00ffc8] text-black font-semibold text-sm px-4 py-2 rounded-lg hover:bg-[#00e6b4] transition-colors"
@@ -183,6 +188,7 @@ export default function Dashboard() {
                 <th className="text-right px-4 py-3">Volume 24h</th>
                 <th className="text-right px-4 py-3">Vol Change</th>
                 <th className="text-center px-4 py-3">Safety</th>
+                <th className="text-right px-4 py-3">Holders</th>
                 <th className="text-left px-4 py-3">AI Analysis</th>
                 <th className="text-center px-4 py-3">Actions</th>
               </tr>
@@ -202,7 +208,12 @@ export default function Dashboard() {
                     </div>
                     <span className="text-gray-500 text-xs">#{token.rank} • {token.name}</span>
                   </td>
-                  <td className="px-4 py-3">{getSignalBadge(token.signal)}</td>
+                  <td className="px-4 py-3">
+                    {getSignalBadge(token.signal)}
+                    {token.confidence !== null && (
+                      <div className="text-[10px] text-gray-500 mt-0.5">{(token.confidence * 100).toFixed(0)}% conf</div>
+                    )}
+                  </td>
                   <td className="px-4 py-3 text-right font-mono text-sm">
                     ${token.price < 0.01 ? token.price.toFixed(6) : token.price.toFixed(4)}
                   </td>
@@ -218,29 +229,42 @@ export default function Dashboard() {
                   <td className={`px-4 py-3 text-center text-sm font-bold ${getSafetyColor(token.safetyScore)}`}>
                     {token.safetyScore !== null ? `${token.safetyScore}/100` : '—'}
                   </td>
+                  <td className="px-4 py-3 text-right text-sm text-gray-300">
+                    {token.holders !== null ? token.holders.toLocaleString() : '—'}
+                  </td>
                   <td className="px-4 py-3 text-sm text-gray-400 max-w-[280px]">
                     <span className="line-clamp-3">{token.aiAnalysis ?? '—'}</span>
                   </td>
-                  <td className="px-4 py-3 text-center">
-                    <button
-                      onClick={() => shareToX(token)}
-                      className="bg-[#0a0f1a] border border-[#1a2235] text-[#00ffc8] text-xs px-3 py-1.5 rounded hover:border-[#00ffc8] transition-colors"
-                    >
-                      Share to X
-                    </button>
+                  <td className="px-4 py-3">
+                    <div className="flex flex-col gap-1">
+                      <a
+                        href={`https://birdeye.so/token/${token.address}?chain=solana`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-[#00ffc8]/10 text-[#00ffc8] text-[10px] font-bold px-2 py-1 rounded text-center hover:bg-[#00ffc8]/20 transition-colors"
+                      >
+                        Trade
+                      </a>
+                      <button
+                        onClick={() => shareToX(token)}
+                        className="bg-[#0a0f1a] border border-[#1a2235] text-gray-400 text-[10px] px-2 py-1 rounded hover:border-[#00ffc8] transition-colors"
+                      >
+                        Share
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
               {tokens.length === 0 && !loading && (
                 <tr>
-                  <td colSpan={9} className="text-center py-10 text-gray-500">
+                  <td colSpan={10} className="text-center py-10 text-gray-500">
                     No tokens found. Check your API key.
                   </td>
                 </tr>
               )}
               {loading && tokens.length === 0 && (
                 <tr>
-                  <td colSpan={9} className="text-center py-10 text-gray-500">
+                  <td colSpan={10} className="text-center py-10 text-gray-500">
                     <span className="animate-pulse">📡 Scanning Solana for meme tokens...</span>
                   </td>
                 </tr>
@@ -252,8 +276,9 @@ export default function Dashboard() {
         {/* Stats */}
         {meta && (
           <div className="flex items-center gap-6 mt-4 text-xs text-gray-500">
-            <span>API calls this scan: {meta.apiCalls}</span>
-            <span>Total API calls: {totalApiCalls}</span>
+            <span>Birdeye calls this scan: {meta.birdeyeCalls}</span>
+            <span>Total Birdeye calls: {totalBirdeyeCalls}</span>
+            <span>Total API calls (all): {totalApiCalls}</span>
             {meta.alertsSent > 0 && <span className="text-[#00ffc8]">📲 {meta.alertsSent} alerts sent to Telegram</span>}
             <span>AI: {meta.aiEnabled ? '✅' : '❌'}</span>
             <span>Alerts: {meta.alertsEnabled ? '✅' : '❌'}</span>
@@ -263,7 +288,7 @@ export default function Dashboard() {
 
       {/* Footer */}
       <footer className="border-t border-[#1a2235] px-6 py-4 text-center text-gray-500 text-xs">
-        MemeRadar.ai — Powered by Birdeye API + Groq AI • Auto-refresh every 60s
+        MemeRadar.ai — Powered by Birdeye API + Groq AI • Auto-refresh every 2min
       </footer>
     </div>
   );

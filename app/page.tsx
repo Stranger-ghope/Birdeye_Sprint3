@@ -130,7 +130,7 @@ export default function Home() {
             <div className="text-3xl mb-3">📡</div>
             <h4 className="font-bold mb-1">Scan</h4>
             <p className="text-gray-400 text-sm">
-              Pulls trending tokens and new listings from Birdeye every 60 seconds.
+              Pulls trending tokens and new listings from Birdeye every 2 minutes.
             </p>
           </div>
           <div className="text-center">
@@ -163,12 +163,14 @@ export default function Home() {
           Birdeye API <span className="text-[#00ffc8]">Endpoints Used</span>
         </h3>
 
-        <div className="grid md:grid-cols-2 gap-3 max-w-2xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-3 max-w-4xl mx-auto">
           {[
             { endpoint: '/defi/token_trending', desc: 'Trending tokens with volume momentum' },
             { endpoint: '/v2/tokens/new_listing', desc: 'Fresh meme token listings' },
-            { endpoint: '/defi/token_security', desc: 'Safety scoring for each token' },
+            { endpoint: '/defi/token_security', desc: 'Mint authority, freeze, holder concentration' },
             { endpoint: '/defi/price', desc: 'Real-time token pricing' },
+            { endpoint: '/defi/token_overview', desc: 'Holder count and supply data' },
+            { endpoint: '/v3/token/trade-data/single', desc: '24h buy/sell trade activity' },
           ].map((item) => (
             <div key={item.endpoint} className="flex items-center gap-3 bg-[#0a0f1a] border border-[#1a2235] rounded-lg px-4 py-3">
               <span className="text-[#00ffc8]">✓</span>
@@ -181,6 +183,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* How To Use */}
+      <section className="max-w-4xl mx-auto px-6 py-16 border-t border-[#1a2235]">
+        <h3 className="text-center text-3xl font-bold mb-10">
+          Get Started in <span className="text-[#00ffc8]">3 Steps</span>
+        </h3>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="text-center">
+            <div className="w-12 h-12 rounded-full bg-[#00ffc8]/10 border border-[#00ffc8]/30 flex items-center justify-center mx-auto mb-4">
+              <span className="text-[#00ffc8] font-bold text-lg">1</span>
+            </div>
+            <h4 className="font-bold mb-2">Open the Dashboard</h4>
+            <p className="text-gray-400 text-sm">
+              See live AI-scored signals for trending Solana meme tokens, updated every 2 minutes.
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="w-12 h-12 rounded-full bg-[#00ffc8]/10 border border-[#00ffc8]/30 flex items-center justify-center mx-auto mb-4">
+              <span className="text-[#00ffc8] font-bold text-lg">2</span>
+            </div>
+            <h4 className="font-bold mb-2">Click Trade</h4>
+            <p className="text-gray-400 text-sm">
+              One click opens Birdeye where you can swap directly. No copy-pasting addresses.
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="w-12 h-12 rounded-full bg-[#00ffc8]/10 border border-[#00ffc8]/30 flex items-center justify-center mx-auto mb-4">
+              <span className="text-[#00ffc8] font-bold text-lg">3</span>
+            </div>
+            <h4 className="font-bold mb-2">Join Telegram</h4>
+            <p className="text-gray-400 text-sm">
+              Get BUY alerts pushed to your phone with AI analysis and trade links — even when you&apos;re AFK.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="text-center px-6 py-20 border-t border-[#1a2235]">
         <h3 className="text-4xl font-bold mb-4">
@@ -188,7 +227,7 @@ export default function Home() {
           <span className="text-[#00ffc8]">Start getting signals.</span>
         </h3>
         <p className="text-gray-400 mb-8">
-          Every signal drops to Telegram with a full AI breakdown. No dashboard required.
+          Every signal drops to Telegram with a full AI breakdown and trade links. No dashboard required.
         </p>
         <a
           href="https://t.me/memeradar_signals"

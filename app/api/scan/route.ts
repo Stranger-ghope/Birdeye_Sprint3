@@ -1,13 +1,15 @@
 import { NextResponse } from 'next/server';
-import { fetchTrendingTokens, fetchNewListings } from '@/lib/birdeye';
+import { fetchTrendingTokens, fetchNewListings, fetchTokenSecurity, fetchTokenPrice, fetchTokenOverview } from '@/lib/birdeye';
 import { analyzeToken } from '@/lib/groq';
 import { sendAlert } from '@/lib/telegram';
-import { estimateSafetyScore } from '@/lib/scorer';
+import { scoreFromSecurity, scoreFromHeuristic } from '@/lib/scorer';
 import type { MemeToken, TelegramAlert } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
 
 const alertedTokens = new Set<string>();
+const DELAY = 2000;
+const delay = () => new Promise((r) => setTimeout(r, DELAY));
 
 function extractArray(res: any): any[] {
   if (Array.isArray(res?.data?.items)) return res.data.items;
@@ -34,6 +36,10 @@ function mapToToken(raw: any, isNew: boolean): MemeToken {
     safetyScore: null,
     aiAnalysis: null,
     signal: null,
+    confidence: null,
+    holders: null,
+    buys24h: null,
+    sells24h: null,
   };
 }
 
@@ -42,35 +48,87 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
     const withAi = url.searchParams.get('ai') === 'true';
     const withAlerts = url.searchParams.get('alerts') === 'true';
+    let birdeyeCalls = 0;
 
-    // 1. Fetch Birdeye data (sequential to respect rate limits)
+    // 1. Fetch trending tokens (/defi/token_trending)
     const trendingRes = await fetchTrendingTokens(20);
-    await new Promise((r) => setTimeout(r, 1500));
+    birdeyeCalls++;
+    await delay();
+
+    // 2. Fetch new listings (/defi/v2/tokens/new_listing)
     const listingsRes = await fetchNewListings(20);
+    birdeyeCalls++;
+    await delay();
 
     const newAddresses = new Set(extractArray(listingsRes).map((t: any) => t?.address));
     const tokens = extractArray(trendingRes)
       .slice(0, 15)
       .map((t: any) => mapToToken(t, newAddresses.has(t?.address)));
 
-    // 2. Safety scores (heuristic, no extra API calls)
-    tokens.forEach((t) => { t.safetyScore = estimateSafetyScore(t); });
+    // 3. Safety scores via /defi/token_security (top 2) with heuristic fallback
+    for (const token of tokens.slice(0, 2)) {
+      try {
+        await delay();
+        const secData = await fetchTokenSecurity(token.address);
+        birdeyeCalls++;
+        const info = secData?.data;
+        token.safetyScore = info ? scoreFromSecurity(info) : scoreFromHeuristic(token);
+      } catch {
+        token.safetyScore = scoreFromHeuristic(token);
+      }
+    }
+    // Heuristic fallback for remaining tokens
+    tokens.slice(2).forEach((t) => { t.safetyScore = scoreFromHeuristic(t); });
 
-    // 3. AI analysis for top 5
+    // 4. Token overview via /defi/token_overview (top 2 — holder count)
+    for (const token of tokens.slice(0, 2)) {
+      try {
+        await delay();
+        const overview = await fetchTokenOverview(token.address);
+        birdeyeCalls++;
+        if (overview?.data?.holder) token.holders = overview.data.holder;
+      } catch { /* keep null */ }
+    }
+
+    // 5. Real-time price check via /defi/price (top 2)
+    for (const token of tokens.slice(0, 2)) {
+      try {
+        await delay();
+        const priceData = await fetchTokenPrice(token.address);
+        birdeyeCalls++;
+        if (priceData?.data?.value) {
+          token.price = priceData.data.value;
+        }
+      } catch {
+        // keep existing price from trending data
+      }
+    }
+
+    // 7. AI analysis for top 5 + safety-signal enforcement
     if (withAi) {
       for (const token of tokens.slice(0, 5)) {
         const ai = await analyzeToken(token);
         token.aiAnalysis = ai.analysis;
-        token.signal = ai.signal;
+        token.confidence = ai.confidence;
+
+        // Downgrade signal if safety is poor
+        if ((token.safetyScore ?? 100) < 50 && ai.signal === 'STRONG_BUY') {
+          token.signal = 'BUY';
+        } else if ((token.safetyScore ?? 100) < 30 && (ai.signal === 'STRONG_BUY' || ai.signal === 'BUY')) {
+          token.signal = 'WATCH';
+        } else {
+          token.signal = ai.signal;
+        }
       }
     }
 
-    // 4. Telegram alerts (dedup by address)
+    // 8. Telegram alerts (dedup by address)
     let alertsSent = 0;
     if (withAlerts) {
       for (const token of tokens) {
         if ((token.signal === 'STRONG_BUY' || token.signal === 'BUY') && !alertedTokens.has(token.address)) {
           const alert: TelegramAlert = {
+            address: token.address,
             symbol: token.symbol,
             name: token.name,
             price: token.price,
@@ -79,7 +137,7 @@ export async function GET(request: Request) {
             volumeChange24h: token.volumeChange24h,
             signal: token.signal,
             analysis: token.aiAnalysis ?? '',
-            confidence: 0.7,
+            confidence: token.confidence ?? 0.5,
             safetyScore: token.safetyScore,
           };
           if (await sendAlert(alert)) {
@@ -90,11 +148,16 @@ export async function GET(request: Request) {
       }
     }
 
-    const apiCalls = 2 + (withAi ? Math.min(tokens.length, 5) : 0);
-
     return NextResponse.json({
       tokens,
-      meta: { apiCalls, alertsSent, timestamp: new Date().toISOString(), aiEnabled: withAi, alertsEnabled: withAlerts },
+      meta: {
+        birdeyeCalls,
+        apiCalls: birdeyeCalls + (withAi ? Math.min(tokens.length, 5) : 0),
+        alertsSent,
+        timestamp: new Date().toISOString(),
+        aiEnabled: withAi,
+        alertsEnabled: withAlerts,
+      },
     });
   } catch (error: any) {
     console.error('Scan error:', error?.message);

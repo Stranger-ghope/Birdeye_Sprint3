@@ -41,3 +41,19 @@ export async function fetchNewListings(limit = 20) {
     limit: String(limit),
   });
 }
+
+export async function fetchTokenSecurity(address: string) {
+  return birdeyeFetch<any>('/defi/token_security', { address });
+}
+
+export async function fetchTokenPrice(address: string) {
+  return birdeyeFetch<any>('/defi/price', { address });
+}
+
+export async function fetchTokenOverview(address: string) {
+  return birdeyeFetch<any>('/defi/token_overview', { address });
+}
+
+export async function fetchTokenTradeData(address: string) {
+  return birdeyeFetch<any>('/defi/v3/token/trade-data/single', { address });
+}

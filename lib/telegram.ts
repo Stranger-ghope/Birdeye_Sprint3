@@ -43,6 +43,8 @@ function formatMessage(alert: TelegramAlert): string {
 
 📝 _${alert.analysis}_
 
+🔗 [Trade on Birdeye](https://birdeye.so/token/${alert.address}?chain=solana) | [Trade on Jupiter](https://jup.ag/swap/SOL-${alert.address})
+
 Powered by #BirdeyeAPI | @MemeRadarAI`;
 }
 

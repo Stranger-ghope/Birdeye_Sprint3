@@ -1,6 +1,16 @@
 import type { MemeToken } from './types';
 
-export function estimateSafetyScore(token: MemeToken): number {
+export function scoreFromSecurity(info: any): number {
+  let score = 50;
+  if (info.isToken2022 === false) score += 10;
+  if (info.isMutable === false) score += 10;
+  if (info.hasFreeze === false) score += 10;
+  if (info.hasMintAuthority === false) score += 10;
+  if (info.top10HolderPercent < 50) score += 10;
+  return Math.min(score, 100);
+}
+
+export function scoreFromHeuristic(token: MemeToken): number {
   let score = 50;
 
   const liq = token.liquidity ?? 0;
