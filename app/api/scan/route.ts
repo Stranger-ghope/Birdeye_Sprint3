@@ -104,9 +104,10 @@ export async function GET(request: Request) {
       }
     }
 
-    // 7. AI analysis for top 5 + safety-signal enforcement
+    // 7. AI analysis for all tokens + safety-signal enforcement (with rate limiting)
     if (withAi) {
       for (const token of tokens) {
+        await delay(); // Rate limit Groq API calls
         const ai = await analyzeToken(token);
         token.aiAnalysis = ai.analysis;
         token.confidence = ai.confidence;
