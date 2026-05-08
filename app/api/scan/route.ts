@@ -125,8 +125,13 @@ export async function GET(request: Request) {
     // 8. Telegram alerts (dedup by address)
     let alertsSent = 0;
     if (withAlerts) {
+      console.log('[TELEGRAM] Alert mode enabled, scanning for BUY signals...');
+      const buyTokens = tokens.filter(t => t.signal === 'STRONG_BUY' || t.signal === 'BUY');
+      console.log('[TELEGRAM] Found', buyTokens.length, 'BUY/STRONG_BUY tokens:', buyTokens.map(t => t.symbol));
+
       for (const token of tokens) {
         if ((token.signal === 'STRONG_BUY' || token.signal === 'BUY') && !alertedTokens.has(token.address)) {
+          console.log('[TELEGRAM] Attempting to send alert for', token.symbol, token.signal);
           const alert: TelegramAlert = {
             address: token.address,
             symbol: token.symbol,
@@ -140,7 +145,9 @@ export async function GET(request: Request) {
             confidence: token.confidence ?? 0.5,
             safetyScore: token.safetyScore,
           };
-          if (await sendAlert(alert)) {
+          const sent = await sendAlert(alert);
+          console.log('[TELEGRAM] Alert for', token.symbol, sent ? 'SUCCESS' : 'FAILED');
+          if (sent) {
             alertsSent++;
             alertedTokens.add(token.address);
           }
