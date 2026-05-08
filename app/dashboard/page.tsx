@@ -97,7 +97,21 @@ export default function Dashboard() {
 
   const shareToX = (token: MemeToken) => {
     const msg = `📡 MemeRadar Signal: ${token.signal ?? 'SCANNING'}\n\n$${token.symbol} — ${token.name}\n💰 $${token.price.toFixed(6)} (${formatPercent(token.priceChange24h)})\n📊 Vol: ${formatNumber(token.volume24h)} (${formatPercent(token.volumeChange24h)})\n🛡️ Safety: ${token.safetyScore ?? '...'}/100\n\n${token.aiAnalysis ?? ''}\n\n#BirdeyeAPI @birdeye_data`;
-    window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(msg)}`, '_blank');
+    const url = `https://x.com/intent/tweet?text=${encodeURIComponent(msg)}`;
+
+    // Try opening in new window
+    try {
+      const win = window.open(url, '_blank', 'width=600,height=400');
+      if (!win || win.closed || typeof win.closed === 'undefined') {
+        // Popup blocked, copy to clipboard instead
+        navigator.clipboard.writeText(msg);
+        alert('Popup blocked. Signal text copied to clipboard!');
+      }
+    } catch (e) {
+      // Fallback to clipboard
+      navigator.clipboard.writeText(msg);
+      alert('Error opening X. Signal text copied to clipboard!');
+    }
   };
 
   return (
