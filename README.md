@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <a href="https://memeradar.vercel.app"><strong>🌐 Live Demo</strong></a> · 
+  <a href="https://memeradar3.vercel.app"><strong>🌐 Live Demo</strong></a> · 
   <a href="https://t.me/memeradar_final_signal"><strong>📲 Telegram Channel</strong></a> · 
   <a href="https://github.com/Stranger-ghope/Birdeye_Sprint3"><strong>💻 GitHub</strong></a>
 </p>
