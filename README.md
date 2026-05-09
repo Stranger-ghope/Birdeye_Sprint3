@@ -60,7 +60,7 @@ Birdeye API → Trending + New Listings → Security → Overview → Price → 
 | 4 | `GET /defi/token_overview` | Holder count and supply data | 5 |
 | 5 | `GET /defi/price` | Real-time price verification | 2 |
 
-**5 Birdeye endpoints · ~11 API calls per scan · Auto-refresh every 2 min**
+**5 Birdeye endpoints · ~11 API calls per scan · Auto-refresh every 5 min**
 
 ### ✅ 140+ API Calls Verified
 
@@ -74,7 +74,7 @@ Birdeye API → Trending + New Listings → Security → Overview → Price → 
 
 | Feature | Description |
 |---|---|
-| 📡 **Live Token Feed** | Trending + new tokens refreshed every 2 minutes |
+| 📡 **Live Token Feed** | Trending + new tokens refreshed every 5 minutes |
 | 🛡️ **Safety Scoring** | On-chain security data with heuristic fallback |
 | 👥 **Holder Data** | Real holder counts from token overview |
 | 🤖 **AI Signals** | Groq-powered `STRONG_BUY` / `BUY` / `WATCH` / `AVOID` with confidence % |

@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import type { MemeToken, ScanMeta } from '@/lib/types';
 
-const REFRESH_INTERVAL = 120_000; // 2 min to respect rate limits
+const REFRESH_INTERVAL = 300_000; // 5 min to respect rate limits
 
 function formatNumber(num: number): string {
   if (num >= 1_000_000) return `$${(num / 1_000_000).toFixed(2)}M`;
@@ -147,7 +147,7 @@ export default function Dashboard() {
           <div>
             <h1 className="text-2xl font-bold">Live Meme Radar</h1>
             <p className="text-gray-400 text-sm">
-              Auto-refresh every 60s • {meta?.timestamp ? new Date(meta.timestamp).toLocaleTimeString() : 'Loading...'}
+              Auto-refresh every 5min • {meta?.timestamp ? new Date(meta.timestamp).toLocaleTimeString() : 'Loading...'}
             </p>
           </div>
           <div className="flex items-center gap-4">
@@ -302,7 +302,7 @@ export default function Dashboard() {
 
       {/* Footer */}
       <footer className="border-t border-[#1a2235] px-6 py-4 text-center text-gray-500 text-xs">
-        MemeRadar.ai — Powered by Birdeye API + Groq AI • Auto-refresh every 2min
+        MemeRadar.ai — Powered by Birdeye API + Groq AI • Auto-refresh every 5min
       </footer>
     </div>
   );
