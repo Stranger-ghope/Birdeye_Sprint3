@@ -168,8 +168,8 @@ memeradar/
 ## Social Proof
 
 <p align="center">
-  <a href="https://x.com/maineine/status/2052782956582682754">📢 Announcement Post</a> ·
-  <a href="https://x.com/maineine/status/2052771121917804693">🚀 Launch Post</a>
+  <a href="https://x.com/maineine/status/2052771121917804693">📢 Announcement Post</a> ·
+  <a href="https://x.com/maineine/status/2052782956582682754">🚀 Launch Post</a>
 </p>
 
 ---
