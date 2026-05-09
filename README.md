@@ -26,7 +26,19 @@
 
 ---
 
-> 🏆 **Birdeye Data 4-Week BIP Competition — Sprint 3 Submission**
+## 🏆 Challenge Submission Details
+
+| Field | Value |
+|---|---|
+| **Project** | MemeRadar.ai |
+| **Competition** | Birdeye Sprint 3 (May 2 – May 9, 2026) |
+| **Category** | AI-Powered Meme Token Discovery |
+| **Live URL** | [memeradar3.vercel.app](https://memeradar3.vercel.app) |
+| **Video Demo** | [Watch Demo](https://youtu.be/uuYhezz-lTA) |
+| **Tweet 1** | [View Post](https://x.com/maineine/status/2052782956582682754) |
+| **Tweet 2** | [View Post](https://x.com/maineine/status/2052771121917804693) |
+| **Telegram** | [Join Channel](https://t.me/memeradar_final_signal) |
+| **GitHub Repo** | [Stranger-ghope/Birdeye_Sprint3](https://github.com/Stranger-ghope/Birdeye_Sprint3) |
 
 ---
 
