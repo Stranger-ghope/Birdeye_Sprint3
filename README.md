@@ -143,6 +143,14 @@ memeradar/
   <img src="public/telegram.png" alt="Telegram Alerts" width="50%" />
 </p>
 
+### Demo Video
+
+<p align="center">
+  <a href="https://youtu.be/uuYhezz-lTA" target="_blank">
+    <img src="https://img.shields.io/badge/📺 Watch_Demo-red?style=for-the-badge&logo=youtube" alt="Watch Demo" />
+  </a>
+</p>
+
 ---
 
 ## Social Proof
